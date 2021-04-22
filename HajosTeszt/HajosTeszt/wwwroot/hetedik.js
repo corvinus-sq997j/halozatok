@@ -1,4 +1,4 @@
-﻿let kérdések;
+﻿/*let kérdések;
 let n = 1;
 
 function letöltés() {
@@ -13,7 +13,7 @@ function letöltésBefejeződött(d) {
     console.log("Sikeres letöltés")
     console.log(d)
     kérdések = d;
-    //console.log("k:" + kérdések.length)
+    
 }
 
 function lepesKezel(lepes) {
@@ -61,7 +61,7 @@ async function kérdésMegjelenítés(k) {
 
 async function valaszKezel(valasz) {
     letöltés();
-    //console.log(kérdések.length);
+    
     let v = valasz;
     let helyes = kérdések[n].correctAnswer;
     console.log("helyes:" + helyes);
@@ -83,7 +83,59 @@ window.onload = () => {
     document.getElementById("válasz2").addEventListener('click', () => valaszKezel(2));
     document.getElementById("válasz3").addEventListener('click', () => valaszKezel(3));
     
-    
-    
+}*/
+
+let n = 1;
+let kérdésSzám
+
+fetch('/questions/1')
+    .then(response => response.json())
+    .then(data => kérdésMegjelenítés(data)
+);
+
+function kérdésBetöltés(id) {
+    fetch(`/questions/${id}`)
+        .then(válaszfeldolgozás)
+        .then(kérdésMegjelenítés);
+}
+
+function válaszfeldolgozás(válasz) {
+    if (!válasz.ok) {
+        console.error(`Hibás válasz: ${response.status}`)
+    }
+    else {
+        return válasz.json()
+    }
+}
+
+function kérdésMegjelenítés(kérdés) {
+    console.log(kérdés);
+    document.getElementById("kérdés_szöveg").innerText = kérdés.questionText
+    document.getElementById("válasz1").innerText = kérdés.answer1
+    document.getElementById("válasz2").innerText = kérdés.answer2
+    document.getElementById("válasz3").innerText = kérdés.answer3
+    document.getElementById("kép").src = "https://szoft1.comeback.hu/hajo/" + kérdés.image;
+}
+
+function kérdésekSzáma() {
+    fetch(`questions/count`)
+        .then(response => {
+            if (!response.ok) {
+                console.error(`Hibás válasz: ${response.status}`)
+            }
+            else {
+                return response.json()
+            }
+        })
+        .then(data => { kérdésSzám = parseInt(data) });
+}
+
+function valaszKezel(valasz) {
 
 }
+
+window.onload = () => {
+
+
+ }
+
