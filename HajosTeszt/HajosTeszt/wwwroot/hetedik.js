@@ -84,20 +84,38 @@ window.onload = () => {
     document.getElementById("válasz3").addEventListener('click', () => valaszKezel(3));
     
 }*/
-
-let n = 1;
+let kérdések;
+let n = 5;
 let kérdésSzám
 
-fetch('/questions/1')
+/*fetch('/questions/1')
     .then(response => response.json())
     .then(data => kérdésMegjelenítés(data)
-);
+);*/
+
+function letöltés() {
+    fetch('/questions.json')
+        .then(response => response.json())
+        .then(data => letöltésBefejeződött(data)
+        );
+
+}
+
+function letöltésBefejeződött(d) {
+    console.log("Sikeres letöltés")
+    console.log(d)
+    kérdések = d;
+
+}
 
 function kérdésBetöltés(id) {
     fetch(`/questions/${id}`)
         .then(válaszfeldolgozás)
-        .then(kérdésMegjelenítés);
+        .then(kérdésMegjelenítés)
+        
 }
+
+
 
 function válaszfeldolgozás(válasz) {
     if (!válasz.ok) {
@@ -114,7 +132,7 @@ function kérdésMegjelenítés(kérdés) {
     document.getElementById("válasz1").innerText = kérdés.answer1
     document.getElementById("válasz2").innerText = kérdés.answer2
     document.getElementById("válasz3").innerText = kérdés.answer3
-    document.getElementById("kép").src = "https://szoft1.comeback.hu/hajo/" + kérdés.image;
+    document.getElementById("kép1").src = "https://szoft1.comeback.hu/hajo/" + kérdés.image;
 }
 
 function kérdésekSzáma() {
@@ -130,12 +148,60 @@ function kérdésekSzáma() {
         .then(data => { kérdésSzám = parseInt(data) });
 }
 
-function valaszKezel(valasz) {
+async function valaszKezel(valasz) {
+    letöltés();
+        
 
+    let v = valasz;
+    let helyes = kérdések[n].correctAnswer;
+    console.log("helyes:" + helyes);
+    document.getElementById("válasz" + helyes).style.backgroundColor = "green";
+    for (var i = 1; i < kérdések.length + 1; i++) {
+        if (i !== helyes) {
+            document.getElementById("válasz" + i).style.backgroundColor = "red";
+        }
+    }
+}
+
+function lepesKezel(lepes) {
+    (async () => {
+        const res = await fetch('/questions.json');
+        const json = await res.json();
+        const length = json.length;
+
+        if (lepes === "vissza") {
+            if (n - 1 < 0) {
+                n = length - 1;
+                kérdésBetöltés(n);
+            } else {
+                n = n - 1;
+                kérdésBetöltés(n);
+            }
+
+        } else if (lepes === "elore") {
+            if (n + 1 > length) {
+                n = 0;
+                kérdésBetöltés(n);
+            } else {
+                n = n + 1;
+                kérdésBetöltés(n);
+            }
+
+        }
+    })();
 }
 
 window.onload = () => {
 
+    kérdésBetöltés(5);
+    
+    //window.alert("sometext");
+
+    document.getElementById("vissza").addEventListener('click', () => lepesKezel("vissza"));
+    document.getElementById("elore").addEventListener('click', () => lepesKezel("elore"));
+    document.getElementById("válasz1").addEventListener('click', () => valaszKezel(1));
+    document.getElementById("válasz2").addEventListener('click', () => valaszKezel(2));
+    document.getElementById("válasz3").addEventListener('click', () => valaszKezel(3));
 
  }
 
