@@ -34,15 +34,15 @@ namespace HajosTeszt.Controllers
 
             return new JsonResult(kérdés);
         }
-        /*[HttpGet]
-        [Route("questions/{count}")]
-        public int M3()
+        
+        [HttpGet]
+        [Route("questions/count")]
+        public int M4() //Tetszőleges metódusnév
         {
             HajostesztContext context = new HajostesztContext();
-            var kérdések = (from x in context.Questions select x.QuestionText).Count();
-                       
-            return kérdések;
-        }*/
+            int kérdésekSzáma = context.Questions.Count();
 
+            return kérdésekSzáma;
+        }
     }
 }
