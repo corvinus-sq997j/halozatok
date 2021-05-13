@@ -12,7 +12,24 @@
         </div>
         <button id="addButton">Új vicc felvétele</button>
     </form>
+    <div id="joke_szöveg"></div>
     <script>
+        fetch(`/api/jokes/${1}`)
+            .then(result => {
+                if (!result.ok) {
+                    console.error(`Hibás letöltés: ${result.status}`);
+                    return null;
+                } else {
+                    return result.json();
+                }
+            })
+            .then(q => {
+                document.getElementById("joke_szöveg").innerText = q.jokeText;
+                
+            })
+
+        //
+
         document.getElementById("addButton").addEventListener("click", () => {
 
             //Ezt az objektumot fogjuk átküldeni
