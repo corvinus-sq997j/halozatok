@@ -71,6 +71,7 @@ function kérdésMegjelenítés() {
     document.getElementById("válasz1").innerText = kérdés.answer1;
     document.getElementById("válasz2").innerText = kérdés.answer2;
     document.getElementById("válasz3").innerText = kérdés.answer3;
+    document.getElementById("kép").style.display = "flex";
     document.getElementById("kép").src = kérdés.image;
 
     if (kérdés.image) {
