@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="beadando.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+    </style>
+    <style>
+        body {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 9px;
+            color:white;
+        }
+    </style>
+</head>
+<body>
+    <div> 1. feladat, Adatb tantárgy 'Diákmunka' adatbázisát telepítettem Azure-os SQL szerverre.</div>
+    <div id="count"></div>
+    <div> 3. feladat, a Diák tábla név oszlopának listázása (diak/all): </div>
+    <div id="eredmeny"></div>
+    <div>4. feladat, rekord lekérdezése kulcs alapján diak/{azonosito}</div>
+    <div id="lekerdezes"></div>
+    <div>5, 6. feladat, HttPost, HttpDelete 'DiakAz' kulcs alapján.</div>
+    <div>7. feladat, rekordok nyers listázása:</div>
+    <div id="listazas"></div>
+    <div>Rögzítés:</div>
+    <div id="rogzites">
+        <form>
+            <div>
+                <input id="diakText" type="text" placeholder="%Új diáknév felvétele" />
+                <input id="bdayText" type="text" placeholder="%Születési év" />
+            </div>
+            <button id="addButton">Rögzítés</button>
+        </form>
+    </div>
+    <div>Törlés: (nem működik 405-ös hiba miatt, erre már nem volt időm, de a végpontot megírtam, leteszteltem.</div>
+    <div id="torles">
+        <form>
+            <div>
+                <input id="diakazText" type="text" placeholder="%Törlés 'DiakAz'" />
+            </div>
+            <button id="diakazButton">Törlés</button>
+        </form>
+    </div>
+    <style>
+        html, body {
+            height: 100%;
+            background-color: black;
+            animation-name: example;
+            animation-duration: 1s;
+        }
+
+        @keyframes example {
+            from {
+                background-color: ghostwhite;
+            }
+
+            to {
+                background-color: antiquewhite;
+            }
+        }
+
+        div {
+            margin: 10px;
+            position: relative;
+            animation-name: example2;
+            animation-duration: 1s;
+            background-color:black;
+        }
+
+        @keyframes example2 {
+            0% {
+                background-color: red;
+                left: 0px;
+                top: 0px;
+            }
+
+            25% {
+                background-color: yellow;
+                left: 200px;
+                top: 0px;
+            }
+
+            50% {
+                background-color: blue;
+                left: 200px;
+                top: 200px;
+            }
+
+            75% {
+                background-color: green;
+                left: 0px;
+                top: 200px;
+            }
+
+            100% {
+                background-color: red;
+                left: 0px;
+                top: 0px;
+            }
+        }
+
+        #eredmeny {
+            border: 4px solid turquoise;
+        }
+
+        #lekerdezes {
+            border: 4px solid turquoise;
+            line-height: 150%;
+        }
+
+        #listazas {
+            border: 4px solid turquoise;
+            line-height: 150%;
+        }
+        #rogzites, #torles {
+            border: 5px dashed turquoise;
+            padding-top: 10px;
+            padding-right: 0px;
+            padding-bottom: 40px;
+            padding-left: 0px;
+        }
+        #diakText, #diakazText, #bdayText {
+            float: left;
+            background-color: paleturquoise;
+            border: none;
+            color: magenta;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            
+        }
+        #addButton, #diakazButton {
+            float: left;
+            background-color: yellow;
+            border: none;
+            color: magenta;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            transition-duration: 0.4s;
+            
+        }
+        #addButton:hover {
+            background-color: #4CAF50; /* Green */
+            color: white;
+        }
+        #diakazButton:hover {
+                background-color: #4CAF50; /* Green */
+                color: white;
+        }
+
+    </style>
+</body>
+</html>
